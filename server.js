@@ -15,12 +15,7 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-});
+
 
 app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/exercise.html"));
@@ -92,7 +87,11 @@ app.put("/api/workouts/:id", (req, res) => {
             res.json(err);
         });
 });
-
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+   
+});
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
 });
