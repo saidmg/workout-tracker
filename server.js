@@ -87,11 +87,8 @@ app.put("/api/workouts/:id", (req, res) => {
             res.json(err);
         });
 });
-mongoose.connect("mongodb+srv://saidmg:skotkalb@cluster0.94zt9.mongodb.net/workout?retryWrites=true&w=majority" || 'mongodb://localhost/workout', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-   
-});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true, useUnifiedTopology: true, });
+
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
 });
