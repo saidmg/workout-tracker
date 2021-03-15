@@ -82,7 +82,7 @@ app.put("/api/workouts/:id", (req, res) => {
     let id = req.params.id
     console.log('[id]', id)
     console.log('[req.body]', req.body)
-    db.Workout.findOneAndUpdate({ _id: id }, { $push: { exercises: req.body } }, { new: true, runValidators: true })
+    db.Workout.findOneAndUpdate({ _id: id }, { $push: { exercises: req.body } }, { new: true, runValidators: true, context: 'query'  })
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
