@@ -66,7 +66,7 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 app.post("/api/workouts", (req, res) => {
-    db.Workout.create(req.body)
+    db.Workout.create({})
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
