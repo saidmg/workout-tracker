@@ -20,8 +20,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
     useFindAndModify: false
 });
 
-// routes
-
 app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/exercise.html"));
 });
@@ -42,11 +40,33 @@ app.get("/api/workouts", (req, res) => {
     ])
         .then(dbWorkout => {
             res.json(dbWorkout);
+            console.log('[dbWorkout]', dbWorkout)
         })
         .catch(err => {
             res.status(400).json(err);
         });
 });
+
+app.get("/api/workouts/range", (req, res) => {
+    db.Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: "$exercises.duration",
+                },
+            },
+        },
+    ])
+        .sort({ _id: -1 })
+        .limit(7)
+        .then((dbWorkouts) => {
+            console.log(dbWorkouts);
+            res.json(dbWorkouts);
+        })
+        .catch((err) => {
+            res.json(err);
+        });
+})
 
 app.post("/api/workouts", (req, res) => {
     db.Workout.create(req.body)
@@ -63,8 +83,8 @@ app.put("/api/workouts/:id", (req, res) => {
     console.log('[id]', id)
     console.log('[req.body]', req.body)
     db.Workout.findOneAndUpdate({ _id: id }, { $push: { exercises: req.body } }, { new: true, runValidators: true })
-        .then(dbUser => {
-            res.json(dbUser);
+        .then(dbWorkout => {
+            res.json(dbWorkout);
         })
         .catch(err => {
             res.json(err);
