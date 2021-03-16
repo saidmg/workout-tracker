@@ -35,6 +35,12 @@ To deploy an application with a MongoDB database to Heroku, you'll need to set u
 Repository Link: https://github.com/saidmg/workout-tracker
 Deployed Link  : https://your-daily-workout-tracker.herokuapp.com/
 
+## ScreenShots
+
+![tracker](https://user-images.githubusercontent.com/71358869/111379729-d6edb700-8679-11eb-8d76-cc30e70883f7.JPG)
+![dashboard](https://user-images.githubusercontent.com/71358869/111379734-d81ee400-8679-11eb-8b09-b58fc617ea3f.JPG)
+
+
 ## License
 
 Copyright <2021> <Said Mghabghab>
