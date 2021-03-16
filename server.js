@@ -27,7 +27,7 @@ app.get("/stats", (req, res) => {
 });
 
 app.get("/api/workouts", (req, res) => {
-    db.Workout.aggregate([
+    db.workout.aggregate([
         {
             $addFields: {
                 totalDuration: {
@@ -46,7 +46,7 @@ app.get("/api/workouts", (req, res) => {
 });
 
 app.get("/api/workouts/range", (req, res) => {
-    db.Workout.aggregate([
+    db.workout.aggregate([
         {
             $addFields: {
                 totalDuration: {
@@ -67,7 +67,7 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 app.post("/api/workouts", (req, res) => {
-    db.Workout.create({})
+    db.workout.create({})
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
@@ -80,7 +80,7 @@ app.put("/api/workouts/:id", (req, res) => {
     let id = req.params.id
     console.log('[id]', id)
     console.log('[req.body]', req.body)
-    db.Workout.findOneAndUpdate({ _id: id }, { $push: { exercises: req.body } }, { new: true, runValidators: true, context: 'query'  })
+    db.workout.findOneAndUpdate({ _id: id }, { $push: { exercises: req.body } }, { new: true, runValidators: true, context: 'query'  })
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
